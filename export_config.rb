@@ -1,6 +1,6 @@
 require "mysql2"
 
-mysql_ip = "192.168.6.135"
+mysql_ip = "127.0.0.1"
 mysql_port = "3306"
 mysql_username = "root"
 mysql_password = "root"
