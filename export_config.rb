@@ -14,10 +14,6 @@ client = Mysql2::Client.new(:host => mysql_ip,
 							:database => mysql_database
 							)
 
-puts "select table_name from information_schema.tables where table_schema = \"#{mysql_database}\""
-puts "select column_name, data_type from information_schema.columns where table_schema = \"#{mysql_database}\" and table_name = \"{table_name}\""
-puts "select * from #{mysql_database}.{table_name}"
-
 tableNameList = client.query("select table_name from information_schema.tables where table_schema = \"#{mysql_database}\"")
 tableNameList.each do |table_name|
 	puts "select column_name, data_type from information_schema.columns where table_schema = \"#{mysql_database}\" and table_name = \"#{table_name["table_name"]}\""
@@ -55,24 +51,3 @@ tableNameList.each do |table_name|
 	end
 end
 
-
-# select column_name from information_schema.columns where table_schema = 'pkm_log_4' and table_name = 'chat_msg';
-# select table_name from information_schema.tables where table_schema = 'pkm_log_4' and table_name = 'chat_msg';
-# select constraint_type from information_schema.table_constraints where table_schema = 'pkm_log_4' and table_name = 'chat_msg';
-
-# select column_name, constraint_type from information_schema.columns c, information_schema.table_constraints tc where c.table_name = tc.table_name and c.table_schema = 'pkm_log_4' and c.table_name = 'chat_msg';
-
-# select column_name, constraint_type from information_schema.columns as c inner join information_schema.table_constraints tc on c.table_name = tc.table_name
-# 	where c.table_schema = 'pkm_log_4' and c.table_name = 'chat_msg' where constraint_type = 'PRIMARY KEY';
-# SELECT
-#   t.TABLE_NAME,
-#   t.CONSTRAINT_TYPE,
-#   c.COLUMN_NAME,
-#   c.ORDINAL_POSITION
-# FROM
-#   INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS t,
-#   INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS c,
-#   information_schema.TABLES AS ts
-# WHERE
-#   t.TABLE_NAME = c.TABLE_NAME
-#   -- AND t.TABLE_SCHEMA = 数据库名称
